@@ -1,4 +1,4 @@
-class RelationshipVisualization
+class relationshipVisualization
 {
     constructor()
     {
