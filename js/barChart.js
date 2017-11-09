@@ -1,0 +1,7 @@
+class BarChart{
+
+    constructor()
+    {
+
+    }
+}

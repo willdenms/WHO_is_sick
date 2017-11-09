@@ -1,0 +1,7 @@
+class GlobalMap{
+
+    constructor()
+    {
+
+    }
+}
