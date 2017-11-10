@@ -11,19 +11,43 @@ class relationshipVisualization {
         //svg.append("g").attr("transform", "translate(" + (width / 2 + 40) + "," + (height / 2 + 90) + ")");
 
         var stratify = d3.stratify()
-            .parentId(function(d) { return d.id.substring(0, d.id.lastIndexOf(".")); });
+            .parentId(function (d) {
+                return d.id.substring(0, d.id.lastIndexOf("."));
+            });
 
         var tree = d3.tree()
             .size([2 * Math.PI, 500])
-            .separation(function(a, b) { return (a.parent == b.parent ? 1 : 2) / a.depth; });
+            .separation(function (a, b) {
+                return (a.parent == b.parent ? 1 : 2) / a.depth;
+            });
 
-        d3.csv("data/fakeData.csv", function(error, data){
+        d3.csv("data/fakeData.csv", function (error, data) {
             if (error) throw error;
 
             var root = tree(stratify(data));
+            console.log(root);
+
+            function collapse(d) {
+                if (d.children) {
+                    d._children = d.children;
+                    d._children.forEach(collapse);
+                    d.children = null;
+                }
+            }
+
+            root.children.forEach(collapse);
+            update(root);
+        });
+
+        function radialPoint(x, y) {
+            return [(y = +y) * Math.cos(x -= Math.PI / 2), y * Math.sin(x)];
+        }
+
+        function update(source){
+
 
             var link = g.selectAll(".link")
-                .data(root.links())
+                .data(source.links())
                 .enter().append("path")
                 .attr("class", "link")
                 .attr("d", d3.linkRadial()
@@ -31,7 +55,7 @@ class relationshipVisualization {
                     .radius(function(d) { return d.y; }));
 
             var node = g.selectAll(".node")
-                .data(root.descendants())
+                .data(source.descendants())
                 .enter().append("g")
                 .attr("class", function(d) { return "node" + (d.children ? " node--internal" : " node--leaf"); })
                 .attr("transform", function(d) { return "translate(" + radialPoint(d.x, d.y) + ")"; });
@@ -45,12 +69,8 @@ class relationshipVisualization {
                 .attr("text-anchor", function(d) { return d.x < Math.PI === !d.children ? "start" : "end"; })
                 .attr("transform", function(d) { return "rotate(" + (d.x < Math.PI ? d.x - Math.PI / 2 : d.x + Math.PI / 2) * 180 / Math.PI + ")"; })
                 .text(function(d) { return d.id.substring(d.id.lastIndexOf(".") + 1); });
-        });
-
-            function radialPoint(x, y) {
-                return [(y = +y) * Math.cos(x -= Math.PI / 2), y * Math.sin(x)];
-            }
         }
+    }
 
     createTree() {
 
