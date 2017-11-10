@@ -1,7 +1,8 @@
 class BarChart{
 
-    constructor()
+    constructor(statistics)
     {
-
+        console.log("Hello Everyone");
+        console.log(statistics);
     }
 }
