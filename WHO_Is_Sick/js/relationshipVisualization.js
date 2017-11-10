@@ -3,12 +3,13 @@ class relationshipVisualization
     constructor()
     {
         var svg = d3.select("#relationship-visualization").append("svg")
-            .attr("width", 960)
-            .attr("height", 1060);
+            .attr("width", 1450)
+            .attr("height", 1500);
 
         var width = +svg.attr("width"),
             height = +svg.attr("height"),
-            g = svg.append("g").attr("transform", "translate(" + (width / 2 + 40) + "," + (height / 2 + 90) + ")");
+            g = svg.append("g").attr("transform", "translate(" + (width / 3) + "," + (height / 2.5) + ")");
+                //svg.append("g").attr("transform", "translate(" + (width / 2 + 40) + "," + (height / 2 + 90) + ")");
 
         var stratify = d3.stratify()
             .parentId(function(d) { return d.id.substring(0, d.id.lastIndexOf(".")); });
