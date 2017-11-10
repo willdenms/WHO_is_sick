@@ -1,7 +1,5 @@
-class relationshipVisualization
-{
-    constructor()
-    {
+class relationshipVisualization {
+    constructor() {
         // source: https://bl.ocks.org/mbostock/4063550
         var svg = d3.select("#relationship-visualization").append("svg")
             .attr("width", 1450)
@@ -10,7 +8,7 @@ class relationshipVisualization
         var width = +svg.attr("width"),
             height = +svg.attr("height"),
             g = svg.append("g").attr("transform", "translate(" + (width / 3) + "," + (height / 2.5) + ")");
-                //svg.append("g").attr("transform", "translate(" + (width / 2 + 40) + "," + (height / 2 + 90) + ")");
+        //svg.append("g").attr("transform", "translate(" + (width / 2 + 40) + "," + (height / 2 + 90) + ")");
 
         var stratify = d3.stratify()
             .parentId(function(d) { return d.id.substring(0, d.id.lastIndexOf(".")); });
@@ -39,7 +37,7 @@ class relationshipVisualization
                 .attr("transform", function(d) { return "translate(" + radialPoint(d.x, d.y) + ")"; });
 
             node.append("circle")
-                .attr("r", 5);
+                .attr("r", 5.5);
 
             node.append("text")
                 .attr("dy", "0.31em")
@@ -47,22 +45,18 @@ class relationshipVisualization
                 .attr("text-anchor", function(d) { return d.x < Math.PI === !d.children ? "start" : "end"; })
                 .attr("transform", function(d) { return "rotate(" + (d.x < Math.PI ? d.x - Math.PI / 2 : d.x + Math.PI / 2) * 180 / Math.PI + ")"; })
                 .text(function(d) { return d.id.substring(d.id.lastIndexOf(".") + 1); });
-
-
         });
 
-        function radialPoint(x, y) {
-            return [(y = +y) * Math.cos(x -= Math.PI / 2), y * Math.sin(x)];
+            function radialPoint(x, y) {
+                return [(y = +y) * Math.cos(x -= Math.PI / 2), y * Math.sin(x)];
+            }
         }
-    }
 
-    createTree()
-    {
+    createTree() {
 
     }
 
-    updateTree()
-    {
+    updateTree() {
 
     }
 }
