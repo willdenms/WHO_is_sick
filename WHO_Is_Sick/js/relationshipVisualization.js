@@ -93,7 +93,7 @@ class relationshipVisualization {
 
 
             var link = g.selectAll(".link")
-                .data(links);
+                .data(root.links());
 
             var linkEnter = link.enter().append("path")
                 .attr("class", "link")
