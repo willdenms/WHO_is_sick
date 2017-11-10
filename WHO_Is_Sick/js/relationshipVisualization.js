@@ -2,6 +2,7 @@ class relationshipVisualization
 {
     constructor()
     {
+        // source: https://bl.ocks.org/mbostock/4063550
         var svg = d3.select("#relationship-visualization").append("svg")
             .attr("width", 1450)
             .attr("height", 1500);
@@ -38,7 +39,7 @@ class relationshipVisualization
                 .attr("transform", function(d) { return "translate(" + radialPoint(d.x, d.y) + ")"; });
 
             node.append("circle")
-                .attr("r", 2.5);
+                .attr("r", 5);
 
             node.append("text")
                 .attr("dy", "0.31em")
