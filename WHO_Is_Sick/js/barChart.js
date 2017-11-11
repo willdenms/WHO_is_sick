@@ -3,7 +3,6 @@ class BarChart{
     constructor(statistics)
     {
         this.statistics = statistics
-        console.log(this.statistics);
 
         this.cell = {
             "width": 80,
@@ -16,9 +15,6 @@ class BarChart{
         let max_mortality = d3.max(this.statistics, function(d){
             return d['MortalityRate']
         });
-
-        console.log("This is the maximum");
-        console.log(max_mortality);
 
         // bar width scale
         this.mortalityWidthScale = d3.scaleLinear()
@@ -33,8 +29,6 @@ class BarChart{
 
     createTable()
     {
-        console.log("Hello World!");
-        console.log(this.statistics);
 
         let tr = d3.select('tbody').selectAll('tr')
             .data(this.statistics);
@@ -74,9 +68,6 @@ class BarChart{
 
         td_bar.append('rect')
             .attr('width', (d)=>{
-                console.log(this.mortalityWidthScale);
-                console.log(d.value);
-                console.log(this.mortalityWidthScale(d.value));
                 return this.mortalityWidthScale(d.value);
             })
             .attr('height', this.cell.height - 5)
