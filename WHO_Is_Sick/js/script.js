@@ -4,4 +4,5 @@ let globalMap = new GlobalMap();
 
 d3.csv("data/barChart.csv", function(error, statistics){
     let barChart = new BarChart(statistics);
+    barChart.createTable();
 });
