@@ -22,7 +22,7 @@ class relationshipVisualization {
                 return (a.parent == b.parent ? 1 : 2) / a.depth;
             });
 
-        d3.csv("data/fakeData.csv", function (error, data) {
+        d3.csv("data/diesease_tree.csv", function (error, data) {
             if (error) throw error;
             console.log(data);
             root = tree(stratify(data));
