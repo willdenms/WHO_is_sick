@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Final Project - WHO_is_sick</title>
+    <!-- Loading the bootstrap mainly for the grid system -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css"/>
     <link rel="stylesheet" href="css/mapStyle.css">
     <script src="https://d3js.org/d3.v4.js"></script>
@@ -13,33 +15,44 @@
 
 <body>
 
+<div align = 'center'>
+    <strong><a href = './projectDetails.html'>About the Project</a></strong>
+</div>
 
-<div id="globalMap">
-    <h1>Choropleth</h1>
-    <div id="map">
+<div id = 'two-controllers'>
+    <div class = 'row'>
+        <div class = 'col-md-8'>
+            <div id="globalMap">
+                <div id="map">
+                </div>
+            </div>
+        </div>
+
+        <div class = 'col-md-4'>
+            <div id = "relationship-visualization">
+            </div>
+        </div>
     </div>
 </div>
 
-<div id = "relationship-visualization">
-    <h1>Select a disease</h1>
+<div id = 'bar-chart-style'>
+    <div class = 'row'>
+        <div id = "bar-chart">
+            Mortality due to Tuberculosis
+            <table>
+                <thead>
+                    <tr>
+                        <th>Country Name</th>
+                        <th>Mortality Rate</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 
-
-<div id = "bar-chart">
-    <h1>Bar Chart</h1>
-    Mortality due to Tuberculosis
-
-    <table>
-        <thead>
-            <tr>
-                <th>Country Name</th>
-                <th>Mortality Rate</th>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
-</div>
 
 <script type= "application/javascript"  src="js/globalMap.js"></script>
 <script src="http://d3js.org/topojson.v1.min.js"></script>
