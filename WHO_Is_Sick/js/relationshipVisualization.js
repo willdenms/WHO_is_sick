@@ -24,7 +24,7 @@ class relationshipVisualization {
 
         d3.csv("data/diesease_tree.csv", function (error, data) {
             if (error) throw error;
-            console.log(data);
+
             root = tree(stratify(data));
 
             // function collapse(d) {
