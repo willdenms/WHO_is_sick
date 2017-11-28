@@ -26,6 +26,18 @@
     cursor: pointer;
 }
 
+#two-controllers{
+    border: solid 1px;
+    margin: 40px;
+    width: 100%;
+}
+
+#bar-chart-style{
+    padding: 40px;
+    border: solid 1px;
+    margin: 40px;
+}
+
 /*.node circle {*/
     /*fill: #fff;*/
     /*stroke: steelblue;*/
