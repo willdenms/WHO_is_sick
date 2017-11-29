@@ -4,8 +4,8 @@ class relationshipVisualization {
 
 
         let margin = {top: 20, right: 90, bottom: 30, left: 90},
-            width = 760 - margin.left - margin.right,
-            height = 400 - margin.top - margin.bottom;
+            width = 960 - margin.left - margin.right,
+            height = 800 - margin.top - margin.bottom;
 
 
         let svg = d3.select("#relationship-visualization").append("svg")
@@ -122,7 +122,7 @@ class relationshipVisualization {
 
             // Update the node attributes and style
             nodeUpdate.select('circle.node')
-                .attr('r', 10)
+                .attr('r', 6)
                 .style("fill", function (d) {
                     return d._children ? "lightsteelblue" : "#fff";
                 })
