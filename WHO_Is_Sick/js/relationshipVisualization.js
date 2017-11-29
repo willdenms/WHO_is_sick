@@ -106,7 +106,8 @@ class relationshipVisualization {
                     return d.children || d._children ? "end" : "start";
                 })
                 .text(function (d) {
-                    return d.data.name;
+                    console.log(d);
+                    return d.id.substring(d.id.lastIndexOf(".") + 1, d.id.length);
                 });
 
             // UPDATE
@@ -156,7 +157,7 @@ class relationshipVisualization {
             let linkEnter = link.enter().insert('path', "g")
                 .attr("class", "link")
                 .attr('d', function (d) {
-                    let o = {x: source.x0, y: source.y0}
+                    let o = {x: source.x0, y: source.y0};
                     return diagonal(o, o)
                 });
 
@@ -174,7 +175,7 @@ class relationshipVisualization {
             let linkExit = link.exit().transition()
                 .duration(duration)
                 .attr('d', function (d) {
-                    let o = {x: source.x, y: source.y}
+                    let o = {x: source.x, y: source.y};
                     return diagonal(o, o)
                 })
                 .remove();
