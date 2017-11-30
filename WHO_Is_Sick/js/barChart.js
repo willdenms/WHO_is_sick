@@ -78,6 +78,6 @@ class BarChart{
 
     update(disease)
     {
-        console.log("hello");
+        console.log(disease);
     }
 }

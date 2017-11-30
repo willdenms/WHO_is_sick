@@ -7,7 +7,7 @@ d3.csv("data/barChart.csv", function(error, statistics){
     barChart.createTable();
 
 
-    let graph = new relationshipVisualization();
+    let graph = new relationshipVisualization(barChart);
 
     d3.csv("data/diesease_tree.csv", function (error, data) {
         if (error) throw error;

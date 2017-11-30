@@ -2,7 +2,6 @@ class relationshipVisualization {
     constructor(barChart) {
 
         this.barChart = barChart;
-
     }
 
     createTree(treeData) {
@@ -44,7 +43,7 @@ class relationshipVisualization {
         root.children.forEach(collapse);
 
         //root.children.forEach(collapse); // this line collapses tree to root and its children
-        updateTree(root);
+        updateTree(root, barChart);
 
         function collapse(d) {
             if (d.children) {
@@ -54,8 +53,8 @@ class relationshipVisualization {
             }
         }
 
-        function updateTree(source) {
-            let barChart;
+        function updateTree(source, barChart) {
+
             let treeData = treemap(root);
 
             // Compute the new tree layout.
@@ -81,7 +80,7 @@ class relationshipVisualization {
                 .attr("transform", function (d) {
                     return "translate(" + source.y0 + "," + source.x0 + ")";
                 })
-                .on('dblclick', click);
+                .on('dblclick', d => click(d, barChart));
 
             // Add Circle for the nodes
             nodeEnter.append('circle')
@@ -125,7 +124,6 @@ class relationshipVisualization {
                 })
                 .attr('cursor', 'pointer')
                 .on('click', function (d) {
-                    console.log(d);
                     d3.select("#relationship-visualization").selectAll("circle")
                         .attr('r', 6);
 
@@ -206,7 +204,7 @@ class relationshipVisualization {
 
             }
 
-            function click(d) {
+            function click(d, barChart) {
                 if (d.children) {
                     d._children = d.children;
                     d.children = null;
@@ -214,7 +212,7 @@ class relationshipVisualization {
                     d.children = d._children;
                     d._children = null;
                 }
-                updateTree(d);
+                updateTree(d, barChart);
             }
         }
 
