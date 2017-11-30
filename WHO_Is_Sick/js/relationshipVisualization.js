@@ -12,7 +12,7 @@ class relationshipVisualization {
         // https://bl.ocks.org/mbostock/4339083
         //svg.append("g").attr("transform", "translate(" + (width / 2 + 40) + "," + (height / 2 + 90) + ")");
 
-        let margin = {top: 20, right: 90, bottom: 30, left: 90};
+        let margin = {top: 20, right: 90, bottom: 30, left: 110};
         let width = 960 - margin.left - margin.right;
         let height = 800 - margin.top - margin.bottom;
 
@@ -117,6 +117,9 @@ class relationshipVisualization {
                     return d.children || d._children ? "end" : "start";
                 })
                 .text(function (d) {
+                    if(d.id.substring(d.id.lastIndexOf(".") + 1, d.id.length) === "Communicable, maternal, perinatal and nutritional conditions"){
+                        return "Communicable, maternal, perinatal and nutritional conditions"
+                    }
                     return d.id.substring(d.id.lastIndexOf(".") + 1, d.id.length);
                 });
 
