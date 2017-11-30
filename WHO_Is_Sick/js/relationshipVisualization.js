@@ -1,12 +1,20 @@
 class relationshipVisualization {
-    constructor() {
+    constructor(barChart) {
+
+        this.barChart = barChart;
+
+    }
+
+    createTree(treeData) {
+
         // source: https://bl.ocks.org/mbostock/4063550
+        // http://dataviscourse.net/tutorials/lectures/lecture-d3-layouts
+        // https://bl.ocks.org/mbostock/4339083
+        //svg.append("g").attr("transform", "translate(" + (width / 2 + 40) + "," + (height / 2 + 90) + ")");
 
-
-        let margin = {top: 20, right: 90, bottom: 30, left: 90},
-            width = 960 - margin.left - margin.right,
-            height = 800 - margin.top - margin.bottom;
-
+        let margin = {top: 20, right: 90, bottom: 30, left: 90};
+        let width = 960 - margin.left - margin.right;
+        let height = 800 - margin.top - margin.bottom;
 
         let svg = d3.select("#relationship-visualization").append("svg")
             .attr("width", width + margin.right + margin.left)
@@ -14,7 +22,6 @@ class relationshipVisualization {
             .append("g")
             .attr("transform", "translate("
                 + margin.left + "," + margin.top + ")");
-        //svg.append("g").attr("transform", "translate(" + (width / 2 + 40) + "," + (height / 2 + 90) + ")");
 
         let stratify = d3.stratify()
             .parentId(function (d) {
@@ -22,24 +29,20 @@ class relationshipVisualization {
             });
 
         let i = 0,
-            duration = 750,
-            root;
+        duration = 750,
+        root;
 
         let treemap = d3.tree().size([height, width]);
 
-        d3.csv("data/diesease_tree.csv", function (error, data) {
-            if (error) throw error;
+        root = treemap(stratify(treeData));
 
-            root = treemap(stratify(data));
+        root.x0 = height / 2;
+        root.y0 = 0;
 
-            root.x0 = height / 2;
-            root.y0 = 0;
+        root.children.forEach(collapse);
 
-            root.children.forEach(collapse);
-
-            //root.children.forEach(collapse); // this line collapses tree to root and its children
-            update(root);
-        });
+        //root.children.forEach(collapse); // this line collapses tree to root and its children
+        updateTree(root);
 
         function collapse(d) {
             if (d.children) {
@@ -49,18 +52,7 @@ class relationshipVisualization {
             }
         }
 
-        function click(d) {
-            if (d.children) {
-                d._children = d.children;
-                d.children = null;
-            } else {
-                d.children = d._children;
-                d._children = null;
-            }
-            update(d);
-        }
-
-        function update(source) {
+        function updateTree(source) {
             let treeData = treemap(root);
 
             // Compute the new tree layout.
@@ -106,7 +98,6 @@ class relationshipVisualization {
                     return d.children || d._children ? "end" : "start";
                 })
                 .text(function (d) {
-                    console.log(d);
                     return d.id.substring(d.id.lastIndexOf(".") + 1, d.id.length);
                 });
 
@@ -197,15 +188,18 @@ class relationshipVisualization {
                 return path
 
             }
+
+            function click(d) {
+                if (d.children) {
+                    d._children = d.children;
+                    d.children = null;
+                } else {
+                    d.children = d._children;
+                    d._children = null;
+                }
+                updateTree(d);
+            }
         }
-
-
-    }
-    createTree() {
-
-    }
-
-    updateTree() {
 
     }
 }
