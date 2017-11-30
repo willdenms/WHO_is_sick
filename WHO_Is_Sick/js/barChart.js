@@ -1,8 +1,9 @@
 class BarChart{
 
-    constructor(statistics)
+    constructor(statistics, statistics_transpose)
     {
-        this.statistics = statistics
+        this.statistics = statistics;
+        this.statistics_transpose = statistics_transpose;
 
         this.cell = {
             "width": 80,
@@ -10,9 +11,23 @@ class BarChart{
             "buffer": 15
         };
 
+        console.log("Statistics Transpose is: ");
+        console.log(this.statistics_transpose);
+
+        console.log("Calculating the maximum value: ");
+
+        let max_mortality = d3.max(this.statistics_transpose, function(d, i){
+
+            //console.log(d['All Causes.Communicable, maternal, perinatal and nutritional conditions']);
+            console.log(d);
+            return parseFloat(d['All Causes.Communicable, maternal, perinatal and nutritional conditions']);
+        });
+
+        console.log("maximum is: " + max_mortality);
+
         // Maximum mortality rate
         // This is going to change in the future depending upon the disease selected.
-        let max_mortality = d3.max(this.statistics, function(d){
+        /*let max_mortality = d3.max(this.statistics, function(d){
             return d['MortalityRate']
         });
 
@@ -24,12 +39,16 @@ class BarChart{
         // color scale for the bars
         this.mortalityColorScale = d3.scaleLinear()
                                     .domain([0, max_mortality])
-                                    .range(['#cb181d','#034e7b']);
+                                    .range(['#cb181d','#034e7b']);*/
+    }
+
+    createTableReal()
+    {
+
     }
 
     createTable()
     {
-
         let tr = d3.select('tbody').selectAll('tr')
             .data(this.statistics);
 
@@ -43,7 +62,7 @@ class BarChart{
                     return [
                         {'vis':'text', 'value':d['Country']},
                         {'vis': 'bar', 'value':d['MortalityRate']}
-                        ];
+                    ];
                 });
 
         td = td
