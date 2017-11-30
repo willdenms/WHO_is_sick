@@ -16,6 +16,8 @@ class relationshipVisualization {
         let width = 960 - margin.left - margin.right;
         let height = 800 - margin.top - margin.bottom;
 
+        let barChart = this.barChart;
+
         let svg = d3.select("#relationship-visualization").append("svg")
             .attr("width", width + margin.right + margin.left)
             .attr("height", height + margin.top + margin.bottom)
@@ -78,7 +80,24 @@ class relationshipVisualization {
                 .attr("transform", function (d) {
                     return "translate(" + source.y0 + "," + source.x0 + ")";
                 })
-                .on('click', click);
+                .on('dblclick', click)
+                .on('click', d => {
+                    d3.select("#relationship-visualization").selectAll("circle")
+                        .attr('r', function (d) {
+                            console.log("hello1");
+                            return 6;
+                        });
+
+                    d3.select(this)
+                        .attr('r', function (d) {
+
+                            console.log("hello2");
+                            return 20;
+                        });
+
+                    // console.log(d.id);
+                    // barChart.update(d.id);
+                });
 
             // Add Circle for the nodes
             nodeEnter.append('circle')
