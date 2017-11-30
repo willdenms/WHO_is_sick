@@ -55,6 +55,7 @@ class relationshipVisualization {
         }
 
         function updateTree(source) {
+            let barChart;
             let treeData = treemap(root);
 
             // Compute the new tree layout.
@@ -80,24 +81,7 @@ class relationshipVisualization {
                 .attr("transform", function (d) {
                     return "translate(" + source.y0 + "," + source.x0 + ")";
                 })
-                .on('dblclick', click)
-                .on('click', d => {
-                    d3.select("#relationship-visualization").selectAll("circle")
-                        .attr('r', function (d) {
-                            console.log("hello1");
-                            return 6;
-                        });
-
-                    d3.select(this)
-                        .attr('r', function (d) {
-
-                            console.log("hello2");
-                            return 20;
-                        });
-
-                    // console.log(d.id);
-                    // barChart.update(d.id);
-                });
+                .on('dblclick', click);
 
             // Add Circle for the nodes
             nodeEnter.append('circle')
@@ -139,7 +123,18 @@ class relationshipVisualization {
                 .style("fill", function (d) {
                     return d._children ? "lightsteelblue" : "#fff";
                 })
-                .attr('cursor', 'pointer');
+                .attr('cursor', 'pointer')
+                .on('click', function (d) {
+                    console.log(d);
+                    d3.select("#relationship-visualization").selectAll("circle")
+                        .attr('r', 6);
+
+
+                    d3.select(this)
+                        .attr('r', 10);
+
+                    barChart.update(d.id);
+                });
 
 
             // Remove any exiting nodes

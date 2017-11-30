@@ -76,8 +76,8 @@ class BarChart{
             })
     }
 
-    update()
+    update(disease)
     {
-
+        console.log("hello");
     }
 }
