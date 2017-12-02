@@ -1,7 +1,8 @@
 class relationshipVisualization {
-    constructor(barChart) {
+    constructor(barChart, choropleth) {
 
         this.barChart = barChart;
+        this.choropleth = choropleth;
     }
 
     createTree(treeData) {
@@ -16,6 +17,7 @@ class relationshipVisualization {
         let height = 800 - margin.top - margin.bottom;
 
         let barChart = this.barChart;
+        let choropleth = this.choropleth;
 
         let svg = d3.select("#relationship-visualization").append("svg")
             .attr("width", width + margin.right + margin.left)
@@ -43,7 +45,7 @@ class relationshipVisualization {
         root.children.forEach(collapse);
 
         //root.children.forEach(collapse); // this line collapses tree to root and its children
-        updateTree(root, barChart);
+        updateTree(root, barChart, choropleth);
 
         function collapse(d) {
             if (d.children) {
@@ -53,7 +55,7 @@ class relationshipVisualization {
             }
         }
 
-        function updateTree(source, barChart) {
+        function updateTree(source, barChart, choropleth) {
 
             let treeData = treemap(root);
 
@@ -129,6 +131,7 @@ class relationshipVisualization {
                         .attr('r', 10);
 
                     barChart.update(d.id);
+                    choropleth.updateMap(d.id);
                 });
 
 

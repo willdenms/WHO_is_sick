@@ -5,10 +5,10 @@
 d3.csv("data/WHO_stats_2015_5.csv", function(error, dataCSV){
         // 0.1 -- 0.1*1000 = 100; 100 people died of the total people died in that country
 
-        let map = new Choropleth(dataCSV);
+        let choropleth = new Choropleth(dataCSV);
         let barChart = new BarChart(dataCSV);
         barChart.createTableReal(dataCSV);
-        map.drawMap();
+        choropleth.drawMap();
 
         let diseaseData = d3.nest()
             .key(function(d){
@@ -47,7 +47,7 @@ d3.csv("data/WHO_stats_2015_5.csv", function(error, dataCSV){
 
         console.log(diseaseData);
 
-        let graph = new relationshipVisualization(barChart);
+        let graph = new relationshipVisualization(barChart, choropleth);
 
         d3.csv("data/diesease_tree.csv", function (error, data) {
             if (error) throw error;

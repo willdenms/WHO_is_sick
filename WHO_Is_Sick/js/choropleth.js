@@ -98,4 +98,10 @@ class Choropleth {
                 .attr("d", path);
         }
     }
+
+    updateMap(diseaseName) {
+        console.log('a new Disease is selected from graph' + diseaseName);
+
+    }
+
 }
