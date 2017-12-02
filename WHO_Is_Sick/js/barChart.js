@@ -9,7 +9,7 @@ class BarChart{
             "height": 20,
             "buffer": 15
         };
-        
+
         // Maximum mortality rate
         // This is going to change in the future depending upon the disease selected.
         /*let max_mortality = d3.max(this.statistics, function(d){

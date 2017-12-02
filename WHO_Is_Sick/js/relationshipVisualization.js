@@ -1,7 +1,8 @@
 class relationshipVisualization {
-    constructor(barChart) {
+    constructor(barChart, choropleth) {
 
         this.barChart = barChart;
+        this.choropleth = choropleth;
     }
 
     createTree(treeData) {
@@ -16,6 +17,7 @@ class relationshipVisualization {
         let height = 800 - margin.top - margin.bottom;
 
         let barChart = this.barChart;
+        let choropleth = this.choropleth;
 
         let svg = d3.select("#relationship-visualization").append("svg")
             .attr("width", width + margin.right + margin.left)
@@ -30,8 +32,8 @@ class relationshipVisualization {
             });
 
         let i = 0,
-        duration = 750,
-        root;
+            duration = 750,
+            root;
 
         let treemap = d3.tree().size([height, width]);
 
@@ -43,7 +45,7 @@ class relationshipVisualization {
         root.children.forEach(collapse);
 
         //root.children.forEach(collapse); // this line collapses tree to root and its children
-        updateTree(root, barChart);
+        updateTree(root, barChart, choropleth);
 
         function collapse(d) {
             if (d.children) {
@@ -53,7 +55,7 @@ class relationshipVisualization {
             }
         }
 
-        function updateTree(source, barChart) {
+        function updateTree(source, barChart, choropleth) {
 
             let treeData = treemap(root);
 
@@ -80,7 +82,7 @@ class relationshipVisualization {
                 .attr("transform", function (d) {
                     return "translate(" + source.y0 + "," + source.x0 + ")";
                 })
-            .on('dblclick', d => click(d, barChart));
+                .on('dblclick', d => click(d, barChart, choropleth));
 
             // Add Circle for the nodes
             nodeEnter.append('circle')
@@ -137,18 +139,21 @@ class relationshipVisualization {
                     return d._children ? "lightsteelblue" : "#fff";
                 })
                 .attr('cursor', 'pointer')
-            .on('click', function (d) {
+                .on('click', function (d) {
 
 
-                d3.select("#relationship-visualization").selectAll("circle")
-                    .attr('r', 6);
+                    d3.select("#relationship-visualization").selectAll("circle")
+                        .attr('r', 6);
 
-                console.log(this);
-                d3.select(this)
-                    .attr('r', 10);
 
-                barChart.update(d.id);
-            });
+                    console.log(this);
+                    d3.select(this)
+                        .attr('r', 10);
+
+
+                    barChart.update(d.id);
+                    choropleth.updateMap(d.id);
+                });
 
 
             // Remove any exiting nodes
@@ -220,7 +225,7 @@ class relationshipVisualization {
 
             }
 
-            function click(d, barChart) {
+            function click(d, barChart, choropleth) {
                 if (d.children) {
                     d._children = d.children;
                     d.children = null;
@@ -228,7 +233,7 @@ class relationshipVisualization {
                     d.children = d._children;
                     d._children = null;
                 }
-                updateTree(d, barChart);
+                updateTree(d, barChart, choropleth);
             }
 
 
