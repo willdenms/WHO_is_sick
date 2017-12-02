@@ -44,8 +44,6 @@ d3.csv("data/WHO_stats_2015_5.csv", function(error, dataCSV){
         });
 
 
-        console.log(diseaseData);
-
         let graph = new relationshipVisualization(barChart);
 
         d3.csv("data/diesease_tree.csv", function (error, data) {

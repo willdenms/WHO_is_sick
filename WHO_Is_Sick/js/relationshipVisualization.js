@@ -80,12 +80,12 @@ class relationshipVisualization {
                 .attr("transform", function (d) {
                     return "translate(" + source.y0 + "," + source.x0 + ")";
                 })
-                .on('dblclick', d => click(d, barChart));
+            .on('dblclick', d => click(d, barChart));
 
             // Add Circle for the nodes
             nodeEnter.append('circle')
                 .attr('class', 'node')
-                .attr('r', 1e-6)
+                .attr('r', 6)
                 .style("fill", function (d) {
                     return d._children ? "lightsteelblue" : "#fff";
                 });
@@ -113,23 +113,42 @@ class relationshipVisualization {
                     return "translate(" + d.y + "," + d.x + ")";
                 });
 
+            // let cc = clickcancel();
+            //
+            // nodeUpdate.select('circle.node').call(cc);
+            //
+            // cc.on('click', function (d) {
+            //     console.log(d.srcElement);
+            //     d3.select("#relationship-visualization").selectAll("circle")
+            //         .attr('r', 6);
+            //
+            //
+            //     d3.select(d.srcElement)
+            //         .attr('r',10);
+            //
+            //     barChart.update(d.id);
+            // });
+            //
+            // cc.on('dblclick', d => click(d, barChart));
+
             // Update the node attributes and style
             nodeUpdate.select('circle.node')
-                .attr('r', 6)
                 .style("fill", function (d) {
                     return d._children ? "lightsteelblue" : "#fff";
                 })
                 .attr('cursor', 'pointer')
-                .on('click', function (d) {
-                    d3.select("#relationship-visualization").selectAll("circle")
-                        .attr('r', 6);
+            .on('click', function (d) {
 
 
-                    d3.select(this)
-                        .attr('r', 10);
+                d3.select("#relationship-visualization").selectAll("circle")
+                    .attr('r', 6);
 
-                    barChart.update(d.id);
-                });
+                console.log(this);
+                d3.select(this)
+                    .attr('r', 10);
+
+                barChart.update(d.id);
+            });
 
 
             // Remove any exiting nodes
@@ -211,7 +230,64 @@ class relationshipVisualization {
                 }
                 updateTree(d, barChart);
             }
-        }
 
+
+            function clickcancel() {
+                // we want to a distinguish single/double click
+                // details http://bl.ocks.org/couchand/6394506
+                var dispatcher = d3.dispatch('click', 'dblclick');
+
+                function cc(selection) {
+                    var down, tolerance = 5, last, wait = null, args;
+
+                    // euclidean distance
+                    function dist(a, b) {
+                        return Math.sqrt(Math.pow(a[0] - b[0], 2), Math.pow(a[1] - b[1], 2));
+                    }
+
+                    selection.on('mousedown', function () {
+                        down = d3.mouse(document.body);
+                        last = +new Date();
+                        args = arguments;
+                    });
+                    selection.on('mouseup', function () {
+                        if (dist(down, d3.mouse(document.body)) > tolerance) {
+                            return;
+                        } else {
+                            if (wait) {
+                                window.clearTimeout(wait);
+                                wait = null;
+                                dispatcher.apply("dblclick", this, args);
+                            } else {
+                                wait = window.setTimeout((function () {
+                                    return function () {
+                                        dispatcher.apply("click", this, args);
+                                        wait = null;
+                                    };
+                                })(), 300);
+                            }
+                        }
+                    });
+                };
+                // Copies a variable number of methods from source to target.
+                var d3rebind = function (target, source) {
+                    var i = 1, n = arguments.length, method;
+                    while (++i < n) target[method = arguments[i]] = d3_rebind(target, source, source[method]);
+                    return target;
+                };
+
+                // Method is assumed to be a standard D3 getter-setter:
+                // If passed with no arguments, gets the value.
+                // If passed with arguments, sets the value and returns the target.
+                function d3_rebind(target, source, method) {
+                    return function () {
+                        var value = method.apply(source, arguments);
+                        return value === source ? target : value;
+                    };
+                }
+
+                return d3rebind(cc, dispatcher, 'on');
+            }
+        }
     }
 }
