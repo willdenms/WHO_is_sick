@@ -100,9 +100,6 @@ class relationshipVisualization {
                     return d.children || d._children ? "end" : "start";
                 })
                 .text(function (d) {
-                    if(d.id.substring(d.id.lastIndexOf(".") + 1, d.id.length) === "Communicable, maternal, perinatal and nutritional conditions"){
-                        return "Communicable, maternal, perinatal and nutritional conditions"
-                    }
                     return d.id.substring(d.id.lastIndexOf(".") + 1, d.id.length);
                 });
 
