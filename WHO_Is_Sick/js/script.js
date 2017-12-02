@@ -40,8 +40,6 @@ d3.csv("data/WHO_stats_2015_5.csv", function(error, dataCSV){
         });
 
     });
-
-    console.log(diseaseData);
     
     d3.csv("data/WHO_stats_2015_5_transpose.csv", function(error, dataCSV_transpose){
         barChart = new BarChart(dataCSV, dataCSV_transpose);
