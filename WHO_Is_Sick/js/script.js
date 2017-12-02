@@ -24,8 +24,25 @@ d3.csv("data/WHO_stats_2015_5.csv", function(error, dataCSV){
         })
         .entries(dataCSV);
 
-    
+    d3.csv("data/CountryDataByYear.csv", function (error, countryData) {
 
+        countryData.forEach(function (d) {
+            if(d["Series Name"] === "GDP per capita (current US$)"){
+                for(disease of diseaseData){
+                    for(country of disease.value){
+                        if(country.code === d["Country Code"]){
+                            country.GDP = d["2015 [YR2015]"];
+                            country.name = d["Country Name"];
+                        }
+                    }
+                }
+            }
+        });
+
+    });
+
+    console.log(diseaseData);
+    
     d3.csv("data/WHO_stats_2015_5_transpose.csv", function(error, dataCSV_transpose){
         barChart = new BarChart(dataCSV, dataCSV_transpose);
         barChart.createTableReal();
