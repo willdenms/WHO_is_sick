@@ -29,7 +29,7 @@ class BarChart{
 
     createTableReal()
     {
-        console.log(this.allData);
+
     }
 
     createTable()
@@ -82,6 +82,6 @@ class BarChart{
 
     update(disease)
     {
-        console.log(disease);
+
     }
 }

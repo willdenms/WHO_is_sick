@@ -10,6 +10,7 @@ class relationshipVisualization {
         // source: https://bl.ocks.org/mbostock/4063550
         // http://dataviscourse.net/tutorials/lectures/lecture-d3-layouts
         // https://bl.ocks.org/mbostock/4339083
+        // http://bl.ocks.org/ropeladder/83915942ac42f17c087a82001418f2ee
         //svg.append("g").attr("transform", "translate(" + (width / 2 + 40) + "," + (height / 2 + 90) + ")");
 
         let margin = {top: 20, right: 90, bottom: 30, left: 110};
@@ -81,8 +82,8 @@ class relationshipVisualization {
                 .attr('class', 'node')
                 .attr("transform", function (d) {
                     return "translate(" + source.y0 + "," + source.x0 + ")";
-                })
-                .on('dblclick', d => click(d, barChart, choropleth));
+                });
+            //.on('dblclick', d => click(d, barChart, choropleth));
 
             // Add Circle for the nodes
             nodeEnter.append('circle')
@@ -115,45 +116,46 @@ class relationshipVisualization {
                     return "translate(" + d.y + "," + d.x + ")";
                 });
 
-            // let cc = clickcancel();
-            //
-            // nodeUpdate.select('circle.node').call(cc);
-            //
-            // cc.on('click', function (d) {
-            //     console.log(d.srcElement);
-            //     d3.select("#relationship-visualization").selectAll("circle")
-            //         .attr('r', 6);
-            //
-            //
-            //     d3.select(d.srcElement)
-            //         .attr('r',10);
-            //
-            //     barChart.update(d.id);
-            // });
-            //
-            // cc.on('dblclick', d => click(d, barChart));
+            let cc = clickcancel();
+
+            nodeUpdate.select('circle.node').call(cc);
+
+            cc.on('click', function (d) {
+                console.log(d);
+                d3.select("#relationship-visualization").selectAll("circle")
+                    .attr('r', 6);
+
+
+                d3.select(d.srcElement)
+                    .attr('r', 10);
+
+                barChart.update(d.id);
+                choropleth.updateMap(d.id);
+
+            });
+
+            cc.on('dblclick', d => click(d, barChart));
 
             // Update the node attributes and style
             nodeUpdate.select('circle.node')
                 .style("fill", function (d) {
                     return d._children ? "lightsteelblue" : "#fff";
                 })
-                .attr('cursor', 'pointer')
-                .on('click', function (d) {
-
-
-                    d3.select("#relationship-visualization").selectAll("circle")
-                        .attr('r', 6);
-
-
-                    console.log(this);
-                    d3.select(this)
-                        .attr('r', 10);
-
-
-                    barChart.update(d.id);
-                    choropleth.updateMap(d.id);
-                });
+                .attr('cursor', 'pointer');
+            // .on('click', function (d) {
+            //
+            //
+            //     d3.select("#relationship-visualization").selectAll("circle")
+            //         .attr('r', 6);
+            //
+            //
+            //     d3.select(this)
+            //         .attr('r', 10);
+            //
+            //
+            //     barChart.update(d.id);
+            //     choropleth.updateMap(d.id);
+            // });
 
 
             // Remove any exiting nodes
@@ -262,8 +264,10 @@ class relationshipVisualization {
                             if (wait) {
                                 window.clearTimeout(wait);
                                 wait = null;
+                                console.log(this);
                                 dispatcher.apply("dblclick", this, args);
                             } else {
+                                console.log(this);
                                 wait = window.setTimeout((function () {
                                     return function () {
                                         dispatcher.apply("click", this, args);

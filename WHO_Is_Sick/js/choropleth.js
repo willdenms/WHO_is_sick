@@ -2,8 +2,6 @@ class Choropleth {
 
     constructor(data) {
 
-        console.log("got data");
-        console.log(data);
     }
 
     drawMap() {
@@ -101,7 +99,6 @@ class Choropleth {
     }
 
     updateMap(diseaseName) {
-        console.log('a new Disease is selected from graph' + diseaseName);
 
     }
 
