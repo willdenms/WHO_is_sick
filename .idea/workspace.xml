@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c1e1a334-e254-480f-b4ec-a0acf1e7eb50" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WHO_Is_Sick/js/choropleth.js" afterPath="$PROJECT_DIR$/WHO_Is_Sick/js/choropleth.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WHO_Is_Sick/js/relationshipVisualization.js" afterPath="$PROJECT_DIR$/WHO_Is_Sick/js/relationshipVisualization.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WHO_Is_Sick/js/script.js" afterPath="$PROJECT_DIR$/WHO_Is_Sick/js/script.js" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -31,8 +29,8 @@
           <file leaf-file-name="choropleth.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/WHO_Is_Sick/js/choropleth.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="544">
-                  <caret line="101" column="27" lean-forward="false" selection-start-line="101" selection-start-column="27" selection-end-line="101" selection-end-column="27" />
+                <state relative-caret-position="240">
+                  <caret line="16" column="32" lean-forward="true" selection-start-line="16" selection-start-column="32" selection-end-line="16" selection-end-column="32" />
                   <folding />
                 </state>
               </provider>
@@ -143,8 +141,8 @@
           <file leaf-file-name="barChart.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/WHO_Is_Sick/js/barChart.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="0">
-                  <caret line="0" column="14" lean-forward="true" selection-start-line="0" selection-start-column="14" selection-end-line="0" selection-end-column="14" />
+                <state relative-caret-position="1005">
+                  <caret line="67" column="0" lean-forward="true" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
                   <folding>
                     <marker date="1512194938163" expanded="true" signature="1942:2000" ph="{...}" />
                     <marker date="1512194938163" expanded="true" signature="2099:2157" ph="{...}" />
@@ -153,21 +151,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="script.js" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/WHO_Is_Sick/js/script.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="603">
-                  <caret line="54" column="11" lean-forward="true" selection-start-line="54" selection-start-column="11" selection-end-line="54" selection-end-column="11" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
           <file leaf-file-name="relationshipVisualization.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/WHO_Is_Sick/js/relationshipVisualization.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="224">
-                  <caret line="53" column="34" lean-forward="true" selection-start-line="53" selection-start-column="34" selection-end-line="53" selection-end-column="34" />
+                <state relative-caret-position="591">
+                  <caret line="219" column="1" lean-forward="true" selection-start-line="219" selection-start-column="1" selection-end-line="219" selection-end-column="1" />
                   <folding />
                 </state>
               </provider>
@@ -180,6 +168,8 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>globe</find>
+      <find>updateTree</find>
+      <find>barChart</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -428,12 +418,12 @@
       <workItem from="1511997687356" duration="791000" />
       <workItem from="1511999581564" duration="325000" />
       <workItem from="1512000201838" duration="3353000" />
-      <workItem from="1512089480043" duration="9514000" />
+      <workItem from="1512089480043" duration="9800000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="15205000" />
+    <option name="totallyTimeSpent" value="15491000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="2560" y="0" width="2560" height="1440" extended-state="0" />
@@ -683,25 +673,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/WHO_Is_Sick/js/barChart.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="14" lean-forward="true" selection-start-line="0" selection-start-column="14" selection-end-line="0" selection-end-column="14" />
-          <folding>
-            <marker date="1512194938163" expanded="true" signature="1942:2000" ph="{...}" />
-            <marker date="1512194938163" expanded="true" signature="2099:2157" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WHO_Is_Sick/js/choropleth.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
-          <caret line="101" column="27" lean-forward="false" selection-start-line="101" selection-start-column="27" selection-end-line="101" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/WHO_Is_Sick/js/script.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="603">
@@ -710,10 +681,29 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/WHO_Is_Sick/js/choropleth.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="32" lean-forward="true" selection-start-line="16" selection-start-column="32" selection-end-line="16" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WHO_Is_Sick/js/barChart.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1005">
+          <caret line="67" column="0" lean-forward="true" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
+          <folding>
+            <marker date="1512194938163" expanded="true" signature="1942:2000" ph="{...}" />
+            <marker date="1512194938163" expanded="true" signature="2099:2157" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/WHO_Is_Sick/js/relationshipVisualization.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="53" column="34" lean-forward="true" selection-start-line="53" selection-start-column="34" selection-end-line="53" selection-end-column="34" />
+        <state relative-caret-position="591">
+          <caret line="219" column="1" lean-forward="true" selection-start-line="219" selection-start-column="1" selection-end-line="219" selection-end-column="1" />
           <folding />
         </state>
       </provider>

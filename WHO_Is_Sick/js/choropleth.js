@@ -3,6 +3,7 @@ class Choropleth {
     constructor(data) {
 
         console.log("got data");
+        console.log(data);
     }
 
     drawMap() {

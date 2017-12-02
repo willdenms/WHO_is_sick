@@ -82,7 +82,7 @@ class relationshipVisualization {
                 .attr("transform", function (d) {
                     return "translate(" + source.y0 + "," + source.x0 + ")";
                 })
-                .on('dblclick', d => click(d, barChart));
+                .on('dblclick', d => click(d, barChart, choropleth));
 
             // Add Circle for the nodes
             nodeEnter.append('circle')
@@ -204,7 +204,7 @@ class relationshipVisualization {
 
             }
 
-            function click(d, barChart) {
+            function click(d, barChart, choropleth) {
                 if (d.children) {
                     d._children = d.children;
                     d.children = null;
@@ -212,7 +212,7 @@ class relationshipVisualization {
                     d.children = d._children;
                     d._children = null;
                 }
-                updateTree(d, barChart);
+                updateTree(d, barChart, choropleth);
             }
         }
 
