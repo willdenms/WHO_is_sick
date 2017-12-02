@@ -1,15 +1,15 @@
 class BarChart{
 
-    constructor(statistics, statistics_transpose)
+    constructor(allData)
     {
-        this.statistics = statistics;
-        this.statistics_transpose = statistics_transpose;
+        this.allData = allData;
 
         this.cell = {
             "width": 80,
             "height": 20,
             "buffer": 15
         };
+<<<<<<< HEAD
 
         // console.log("Statistics Transpose is: ");
         // console.log(this.statistics_transpose);
@@ -25,6 +25,9 @@ class BarChart{
 
         // console.log("maximum is: " + max_mortality);
 
+=======
+        
+>>>>>>> 688f23bf12b6d176b9ced4fddd43b8932948bc69
         // Maximum mortality rate
         // This is going to change in the future depending upon the disease selected.
         /*let max_mortality = d3.max(this.statistics, function(d){
@@ -44,7 +47,7 @@ class BarChart{
 
     createTableReal()
     {
-
+        console.log(this.allData);
     }
 
     createTable()
