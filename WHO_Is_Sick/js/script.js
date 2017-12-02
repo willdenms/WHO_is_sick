@@ -2,25 +2,13 @@
 
 
 
-
 d3.csv("data/WHO_stats_2015_5.csv", function(error, dataCSV){
-<<<<<<< HEAD
-    // 0.1 -- 0.1*1000 = 100; 100 people died of the total people died in that country
-    let barChart;
-    let map;
-
-    d3.csv("data/WHO_stats_2015_5_transpose.csv", function(error, dataCSV_transpose){
-        barChart = new BarChart(dataCSV, dataCSV_transpose);
-        barChart.createTableReal();
-
-        map = new Choropleth(dataCSV_transpose);
-        map.drawMap();
-    });
-=======
         // 0.1 -- 0.1*1000 = 100; 100 people died of the total people died in that country
 
+        let map = new Choropleth(dataCSV);
         let barChart = new BarChart(dataCSV);
         barChart.createTableReal(dataCSV);
+        map.drawMap();
 
         let diseaseData = d3.nest()
             .key(function(d){
@@ -56,7 +44,6 @@ d3.csv("data/WHO_stats_2015_5.csv", function(error, dataCSV){
             });
 
         });
->>>>>>> 688f23bf12b6d176b9ced4fddd43b8932948bc69
 
         console.log(diseaseData);
 

@@ -9,25 +9,7 @@ class BarChart{
             "height": 20,
             "buffer": 15
         };
-<<<<<<< HEAD
 
-        // console.log("Statistics Transpose is: ");
-        // console.log(this.statistics_transpose);
-        //
-        // console.log("Calculating the maximum value: ");
-
-        let max_mortality = d3.max(this.statistics_transpose, function(d, i){
-
-            //console.log(d['All Causes.Communicable, maternal, perinatal and nutritional conditions']);
-            // console.log(d);
-            return parseFloat(d['All Causes.Communicable, maternal, perinatal and nutritional conditions']);
-        });
-
-        // console.log("maximum is: " + max_mortality);
-
-=======
-        
->>>>>>> 688f23bf12b6d176b9ced4fddd43b8932948bc69
         // Maximum mortality rate
         // This is going to change in the future depending upon the disease selected.
         /*let max_mortality = d3.max(this.statistics, function(d){
