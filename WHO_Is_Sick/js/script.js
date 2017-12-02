@@ -6,6 +6,26 @@ d3.csv("data/WHO_stats_2015_5.csv", function(error, dataCSV){
     // 0.1 -- 0.1*1000 = 100; 100 people died of the total people died in that country
     let barChart;
 
+    let diseaseData = d3.nest()
+        .key(function(d){
+            return d["Disease Name"];
+        })
+        .rollup(function (leaves){
+            let codes = Object.keys(leaves[0]);
+            let final = [];
+
+            codes.forEach(function (d) {
+                let value = {};
+                value.code = d;
+                value.mortality = leaves[0][d];
+                final.push(value);
+            });
+            return final;
+        })
+        .entries(dataCSV);
+
+    
+
     d3.csv("data/WHO_stats_2015_5_transpose.csv", function(error, dataCSV_transpose){
         barChart = new BarChart(dataCSV, dataCSV_transpose);
         barChart.createTableReal();
