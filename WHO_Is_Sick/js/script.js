@@ -53,4 +53,3 @@ d3.csv("data/WHO_stats_2015_5.csv", function(error, dataCSV){
             graph.createTree(data);
         });
     });
-}
