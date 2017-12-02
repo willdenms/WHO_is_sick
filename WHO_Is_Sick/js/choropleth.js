@@ -17,7 +17,7 @@ class Choropleth {
                 return "<strong>Country: </strong><span class='details'>" + d.properties.name + "<br></span>" + "<strong>Population: </strong><span class='details'>" + format(d.population) + "</span>";
             })
 
-        let margin = {top: 100, right: 0, bottom: 0, left: 0},
+        let margin = {top: -100, right: 0, bottom: 0, left: 0},
             width = 1000 - margin.left - margin.right,
             height = 600 - margin.top - margin.bottom;
 
