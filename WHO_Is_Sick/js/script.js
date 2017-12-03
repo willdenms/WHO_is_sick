@@ -46,8 +46,17 @@ d3.csv("data/WHO_stats_2015_5.csv", function (error, dataCSV) {
                     }
                 }
             }
-
+            if(d["Series Name"] === "Population, total"){
+                for (var disease of diseaseData) {
+                    for (var country of disease.value) {
+                        if (country.code === d["Country Code"]) {
+                            country["Pop"] = d["2015 [YR2015]"];
+                        }
+                    }
+                }
+            }
         });
+
 
         let barChart = new BarChart(diseaseData);
         barChart.createTableReal("All Causes");

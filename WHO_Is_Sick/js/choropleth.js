@@ -91,7 +91,7 @@ class Choropleth {
                     .enter().append("path")
                     .attr("d", path)
                     .style("fill", function (d) {
-                        console.log(diseaseByCountryName[d.id]);
+                        //console.log(diseaseByCountryName[d.id]);
                         return color(diseaseByCountryName[d.id]);
                     })
                     .style('stroke', 'white')
