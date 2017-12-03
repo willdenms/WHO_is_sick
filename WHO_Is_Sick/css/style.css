@@ -51,4 +51,9 @@ tbody td{
     padding-left: 50px;
     padding-right: 50px;
     border-right: solid 1px black;
+
+thead th{
+    cursor: s-resize;
+    font-weight: bold;
 }
+

@@ -46,7 +46,7 @@ d3.csv("data/WHO_stats_2015_5.csv", function (error, dataCSV) {
                     }
                 }
             }
-            
+
         });
 
         let barChart = new BarChart(diseaseData);
