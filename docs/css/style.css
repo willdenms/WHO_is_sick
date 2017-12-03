@@ -1,0 +1,58 @@
+/* This is the CSS file */
+.node circle {
+    fill: #fff;
+}
+
+.node text {
+    font: 10px sans-serif;
+}
+
+.link {
+    fill: none;
+    stroke-width: 1.5px;
+}
+
+/*.selected{*/
+    /*stroke:#be2714;*/
+/*}*/
+
+.node {
+    cursor: pointer;
+}
+
+#two-controllers{
+    border: solid 1px;
+    margin: 40px;
+    width: 100%;
+}
+
+#bar-chart-style{
+    padding: 40px;
+    border: solid 1px;
+    margin: 40px;
+}
+
+.country-name-style{
+    font-weight: bold;
+    color: #009DA6;
+}
+
+tbody tr:hover {
+    background-color: #dbdbdb;
+}
+
+thead th{
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+tbody td {
+    padding-left: 50px;
+    padding-right: 50px;
+    border-right: solid 1px black;
+}
+thead th{
+    cursor: s-resize;
+    font-weight: bold;
+}
+
