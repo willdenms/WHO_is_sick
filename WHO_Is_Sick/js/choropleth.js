@@ -1,10 +1,13 @@
 class Choropleth {
 
-    constructor(data) {
+    constructor() {
 
     }
 
-    drawMap() {
+    drawMap(disease) {
+
+        //clear current map
+        var selection = d3.select("#globalMap").selectAll("svg").remove();
 
         let format = d3.format(",");
 
@@ -26,6 +29,11 @@ class Choropleth {
 
         var path = d3.geoPath();
 
+
+        let headerSelection = d3.select("#selection").select("h").remove();
+        headerSelection = d3.select("#selection").append("h").text(disease);
+
+
         let svg = d3.select("#globalMap")
             .append("svg")
             .attr("width", width)
@@ -44,16 +52,23 @@ class Choropleth {
         queue()
             .defer(d3.json, "data/world_countries.json")
             .defer(d3.tsv, "data/stubData.tsv")
+            // .defer(d3.tsv, "data/WHO_stats_2015_5_transpose.tsv")
             .await(ready);
 
         function ready(error, data, population) {
+
+
             let populationById = {};
 
+            // console.log("this is the dataCSV: " + self.data);
             population.forEach(function (d) {
-                populationById[d.id] = +d.population;
+
+                populationById[d.id] = +d.population;;
+                // console.log("this is my new breakpoint: " + populationById[d.id]);
+
             });
             data.features.forEach(function (d) {
-                d.population = populationById[d.id]
+                d.CountryName = populationById[d.id]
             });
 
             svg.append("g")
@@ -99,6 +114,10 @@ class Choropleth {
     }
 
     updateMap(diseaseName) {
+        this.drawMap(diseaseName);
+        console.log('a new Disease is selected from graph' + diseaseName);
+
+
 
     }
 
