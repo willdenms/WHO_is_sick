@@ -38,6 +38,7 @@ class BarChart{
         });
 
         this.diseaseMortality = rowFilter[0].value;
+        this.diseaseMortality = rowFilter[0].value;
 
         this.diseaseMortality = this.diseaseMortality.filter(function(record){
             if(record.mortality != '.')
@@ -56,7 +57,6 @@ class BarChart{
             .select('thead')
             .selectAll('th')
             .on('click', (d, i) =>{
-                //console.log(i);
 
                 if(i == 2)
                 {
@@ -212,5 +212,6 @@ class BarChart{
     {
         d3.select('tbody').selectAll('tr').remove();
         this.createTableReal(disease);
+        this.updateTable();
     }
 }
