@@ -162,12 +162,12 @@ class relationshipVisualization {
                 d.clicked = true;
                 parentClick(d);
 
+                d3.select("#relationship-visualization").selectAll("path")
+                    .attr('stroke', '#ccc');
+
 
                 let parentLinks = d3.select("#relationship-visualization").selectAll("path")
                     .filter(function (d) {
-                        d.children.forEach(function (d) {
-
-                        });
                         return d.parentClicked;
                     });
 
