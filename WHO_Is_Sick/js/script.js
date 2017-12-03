@@ -51,7 +51,7 @@ d3.csv("data/WHO_stats_2015_5.csv", function(error, dataCSV){
 
             let barChart = new BarChart(diseaseData);
             barChart.createTableReal("All Causes");
-
+            
         let graph = new relationshipVisualization(barChart, choropleth);
 
             d3.csv("data/diesease_tree.csv", function (error, data) {
