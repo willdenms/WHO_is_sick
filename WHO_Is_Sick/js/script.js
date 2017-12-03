@@ -8,7 +8,7 @@ d3.csv("data/WHO_stats_2015_5.csv", function(error, dataCSV){
         let choropleth = new Choropleth(dataCSV);
         let barChart = new BarChart(dataCSV);
         barChart.createTableReal(dataCSV);
-        choropleth.drawMap();
+        choropleth.drawMap("All Causes");
 
         let diseaseData = d3.nest()
             .key(function(d){
