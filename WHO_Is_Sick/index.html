@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+
+    <title>Final Project - WHO_is_sick</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="css/globeStyle.css">
+    <script src="http://d3js.org/d3.v4.min.js"></script>
+    <script src="http://d3js.org/queue.v1.min.js"></script>
+    <script src="http://d3js.org/topojson.v1.min.js"></script>
+    <script src="js/d3-tip.js"></script>
+    <script src="js/choropleth.js"></script>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+
+    <!-- Plugin CSS -->
+    <link href="vendor/magnific-popup/magnific-popup.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/creative.css" rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="#page-top">W.H.O. is Sick</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="#about">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="#services">Screen-cast</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="#portfolio">Project</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<header class="masthead text-center text-white d-flex">
+    <div class="container my-auto">
+        <div class="row">
+            <div class="col-lg-10 mx-auto">
+                <h1 class="text-uppercase">
+                    <strong>W.H.O is Sick?</strong>
+                </h1>
+                <hr>
+            </div>
+            <div class="col-lg-8 mx-auto">
+                <p class="text-faded mb-5">Our project tells the story of mortality rates around the world and how they are affected by GDP and population.</p>
+                <a class="btn btn-primary btn-xl js-scroll-trigger" href="#about">Find Out More</a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<section class="bg-primary" id="about">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h2 class="section-heading text-white">The Facts are there</h2>
+                <hr class="light my-4">
+                <p class="text-faded mb-4">We need to put something here</p>
+                <a class="btn btn-light btn-xl js-scroll-trigger" href="#services">Get Started!</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="services">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2 class="section-heading">ScreenCast</h2>
+                <hr class="my-4">
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/live_stream?channel=CHANNEL_ID&autoplay=1" frameborder="0" allowfullscreen></iframe>
+
+    </div>
+</section>
+
+<section class="p-0" id="portfolio">
+
+    <div align = 'center'>
+        <strong><a href = './projectDetails.html'>About the Project</a></strong>
+    </div>
+
+    <div id = 'two-controllers'>
+        <div id="selection"></div>
+        <div class = 'row'>
+            <div class = 'col-md-8'>
+                <div id="globalMap">
+
+                </div>
+            </div>
+
+            <div class = 'col-md-4'>
+                <div id = "relationship-visualization">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id = 'bar-chart-style'>
+        <div class = 'row'>
+            <div id = "bar-chart">
+                <h5 id = 'mortality-title'></h5>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Country Name</th>
+                        <th>Mortality in thousands</th>
+                        <th>GDP</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="http://d3js.org/topojson.v1.min.js"></script>
+    <script src="http://d3js.org/queue.v1.min.js"></script>
+    <script type= "application/javascript" src = "js/barChart.js"></script>
+    <script type= "application/javascript" src = "js/relationshipVisualization.js"></script>
+    <script type= "application/javascript" src = "js/script.js"></script>
+
+</section>
+
+
+</section>
+
+<section id="contact" class="container content-section3 text-center">
+
+    <div class="row">
+        <div class="col-lg-12 text-center">
+            <h2 class="section-heading">Contact</h2>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="team-member">
+                <img src="img/team/howa500x500.jpg" class="img-responsive img-circle" alt="">
+                <h4>Matt Willden</h4>
+                <h4 class="text-muted">U0920335</br>willdenms@gmail.com</h4>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="team-member">
+                <img src="img/team/TobinPicture500x500.jpg" class="img-responsive img-circle" alt="">
+                <h4>Naoki Tominaga</h4>
+                <h4 class="text-muted">u0876779</br>nrtominaga@gmail.com</h4>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="team-member">
+                <img src="img/team/Matt500x500.jpg" class="img-responsive img-circle" alt="">
+                <h4>Paarth Lakhani</h4>
+                <h4 class="text-muted">u0936913</br>paarth.lakhani@utah.edu</h4>
+            </div>
+        </div>
+    </div>
+
+    <div id="links">
+
+        <div class="col-lg-8 col-lg-offset-2">
+            <ul class="list-inline banner-social-buttons">
+                <li>
+                    <a href="https://github.com/willdenms/WHO_is_sick"
+                       class="btn btn-default btn-lg"><i class="fa fa-github fa-fw"></i> <span
+                            class="network-name">Github</span></a>
+                </li>
+                <li>
+                    <a href="processbook.pdf">
+                        <img src="img/downloadicon.png" class="fa fa-5x fa-fw" />
+                        <h3>Process Book</h3>
+                    </a>
+
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+
+</section>
+
+<!-- Bootstrap core JavaScript -->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Plugin JavaScript -->
+<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="vendor/scrollreveal/scrollreveal.min.js"></script>
+<script src="vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+
+<!-- Custom scripts for this template -->
+<script src="js/creative.min.js"></script>
+
+</body>
+
+</html>
