@@ -13,6 +13,10 @@
     stroke-width: 2px;
 }
 
+/*.selected{*/
+    /*stroke:#be2714;*/
+/*}*/
+
 .node {
     cursor: pointer;
 }

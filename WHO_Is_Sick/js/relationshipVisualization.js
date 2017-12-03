@@ -45,12 +45,14 @@ class relationshipVisualization {
 
         root.children.forEach(collapse);
         root.clicked = false;
+        root.parentClicked = false;
 
         updateTree(root, barChart, choropleth);
 
         function collapse(d) {
             if (d.children) {
                 d.clicked = false;
+                d.parentClicked = false;
                 d._children = d.children;
                 d._children.forEach(collapse);
                 d.children = null;
@@ -59,11 +61,19 @@ class relationshipVisualization {
 
         function falseClick(d) {
             d.clicked = false;
+            d.parentClicked = false;
             if (d.children) {
                 d.children.forEach(falseClick);
             }
             else if (d._children) {
                 d._children.forEach(falseClick);
+            }
+        }
+
+        function parentClick(d) {
+            d.parentClicked = true;
+            if(d.parent){
+                parentClick(d.parent);
             }
         }
 
@@ -94,7 +104,6 @@ class relationshipVisualization {
                 .attr("transform", function (d) {
                     return "translate(" + source.y0 + "," + source.x0 + ")";
                 });
-            //.on('dblclick', d => click(d, barChart, choropleth));
 
             // Add Circle for the nodes
             nodeEnter.append('circle')
@@ -154,6 +163,17 @@ class relationshipVisualization {
             cc.on('click', function (d) {
                 falseClick(root);
                 d.clicked = true;
+                parentClick(d);
+
+
+
+                let parentLinks = d3.select("#relationship-visualization").selectAll("path")
+                    .filter(function (d) {
+                        return d.parentClicked;
+                    });
+
+                parentLinks
+
                 barChart.update(d.id);
                 choropleth.updateMap(d.id);
             });
@@ -210,6 +230,12 @@ class relationshipVisualization {
             // Enter any new links at the parent's previous position.
             let linkEnter = link.enter().insert('path', "g")
                 .attr("class", "link")
+                .attr("stroke", function (d) {
+                    if(d.parentClicked){
+                        return "#be2714";
+                    }
+                    return "#ccc";
+                })
                 .attr('d', function (d) {
                     let o = {x: source.x0, y: source.y0};
                     return diagonal(o, o)
@@ -221,6 +247,12 @@ class relationshipVisualization {
             // Transition back to the parent element position
             linkUpdate.transition()
                 .duration(duration)
+                .attr('stroke', function (d) {
+                    if(d.parentClicked){
+                        return "#be2714";
+                    }
+                    return "#ccc";
+                })
                 .attr('d', function (d) {
                     return diagonal(d, d.parent)
                 });
@@ -313,6 +345,8 @@ class relationshipVisualization {
 
                                         dispatcher.apply("click", this, args);
                                         wait = null;
+
+
                                     };
                                 })(), 300);
                             }
