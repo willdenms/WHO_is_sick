@@ -44,15 +44,26 @@ class relationshipVisualization {
         root.y0 = 0;
 
         root.children.forEach(collapse);
+        root.clicked = false;
 
-        //root.children.forEach(collapse); // this line collapses tree to root and its children
         updateTree(root, barChart, choropleth);
 
         function collapse(d) {
             if (d.children) {
+                d.clicked = false;
                 d._children = d.children;
                 d._children.forEach(collapse);
                 d.children = null;
+            }
+        }
+
+        function falseClick(d){
+            d.clicked = false;
+            if(d.children){
+                d.children.forEach(falseClick);
+            }
+            else if(d._children){
+                d._children.forEach(falseClick);
             }
         }
 
@@ -88,8 +99,28 @@ class relationshipVisualization {
             // Add Circle for the nodes
             nodeEnter.append('circle')
                 .attr('class', 'node')
-                .attr('r', 6)
+                .attr('r', function (d) {
+                    if(d.clicked){
+                        return 10;
+                    }
+                    return 6;
+                })
+                .attr('stroke', function (d) {
+                    if(d.clicked){
+                        return "red";
+                    }
+                    return "steelblue";
+                })
+                .attr('stroke-width', function (d) {
+                    if(d.clicked){
+                        return "4px";
+                    }
+                    return "1.5px";
+                })
                 .style("fill", function (d) {
+                    if(d.clicked){
+                        return d._children ? "red" : "#fff";
+                    }
                     return d._children ? "lightsteelblue" : "#fff";
                 });
 
@@ -121,41 +152,35 @@ class relationshipVisualization {
             nodeUpdate.select('circle.node').call(cc);
 
             cc.on('click', function (d) {
-                console.log(d);
-                d3.select("#relationship-visualization").selectAll("circle")
-                    .attr('r', 6);
-
-
-                d3.select(d.srcElement)
-                    .attr('r', 10);
-
+                falseClick(root);
+                d.clicked = true;
                 barChart.update(d.id);
                 choropleth.updateMap(d.id);
-
             });
 
-            cc.on('dblclick', d => click(d, barChart));
+            cc.on('dblclick', d => click(d, barChart, choropleth));
 
             // Update the node attributes and style
             nodeUpdate.select('circle.node')
                 .style("fill", function (d) {
+                    if(d.clicked){
+                        return d._children ? "red" : "#fff";
+                    }
                     return d._children ? "lightsteelblue" : "#fff";
                 })
+                .attr('stroke', function (d) {
+                    if(d.clicked){
+                        return "red";
+                    }
+                    return "steelblue";
+                })
+                .attr('stroke-width', function (d) {
+                    if(d.clicked){
+                        return "4px";
+                    }
+                    return "1.5px";
+                })
                 .attr('cursor', 'pointer');
-            // .on('click', function (d) {
-            //
-            //
-            //     d3.select("#relationship-visualization").selectAll("circle")
-            //         .attr('r', 6);
-            //
-            //
-            //     d3.select(this)
-            //         .attr('r', 10);
-            //
-            //
-            //     barChart.update(d.id);
-            //     choropleth.updateMap(d.id);
-            // });
 
 
             // Remove any exiting nodes
@@ -264,12 +289,28 @@ class relationshipVisualization {
                             if (wait) {
                                 window.clearTimeout(wait);
                                 wait = null;
-                                console.log(this);
                                 dispatcher.apply("dblclick", this, args);
                             } else {
-                                console.log(this);
-                                wait = window.setTimeout((function () {
-                                    return function () {
+                                wait = window.setTimeout(( () => {
+                                    return  () => {
+
+                                        d3.select("#relationship-visualization").selectAll("circle")
+                                            .attr('r', 6)
+                                            .style('fill', function (d) {
+                                                return d._children ? "lightsteelblue" : "#fff";
+                                            })
+                                            .attr('stroke', 'steelblue')
+                                            .attr('stroke-width', '1.5px');
+
+
+                                        d3.select(this)
+                                            .attr('r', 10)
+                                            .style('fill', function (d) {
+                                                return d._children ? "red" : "#fff";
+                                            })
+                                            .attr('stroke', "red")
+                                            .attr('stroke-width', '4px');
+
                                         dispatcher.apply("click", this, args);
                                         wait = null;
                                     };

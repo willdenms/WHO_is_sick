@@ -10,6 +10,7 @@ d3.csv("data/WHO_stats_2015_5.csv", function(error, dataCSV){
         barChart.createTableReal(dataCSV);
         choropleth.drawMap();
 
+
         let diseaseData = d3.nest()
             .key(function(d){
                 return d["Disease Name"];
@@ -35,8 +36,8 @@ d3.csv("data/WHO_stats_2015_5.csv", function(error, dataCSV){
                     for(disease of diseaseData){
                         for(country of disease.value){
                             if(country.code === d["Country Code"]){
-                                country.GDP = d["2015 [YR2015]"];
-                                country.name = d["Country Name"];
+                                country["GDP"] = d["2015 [YR2015]"];
+                                country["name"] = d["Country Name"];
                             }
                         }
                     }
