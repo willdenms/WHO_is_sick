@@ -4,9 +4,6 @@
 d3.csv("data/WHO_stats_2015_5.csv", function (error, dataCSV) {
     // 0.1 -- 0.1*1000 = 100; 100 people died of the total people died in that country
 
-    let choropleth = new Choropleth(dataCSV);
-    choropleth.drawMap("All Causes");
-
 
     let diseaseData = d3.nest()
         .key(function (d) {
@@ -57,6 +54,9 @@ d3.csv("data/WHO_stats_2015_5.csv", function (error, dataCSV) {
             }
         });
 
+
+        let choropleth = new Choropleth(diseaseData[0].value);
+        choropleth.drawMap("All Causes");
 
         let barChart = new BarChart(diseaseData);
         barChart.createTableReal("All Causes");

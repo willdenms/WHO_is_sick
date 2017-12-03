@@ -72,7 +72,7 @@ class relationshipVisualization {
 
         function parentClick(d) {
             d.parentClicked = true;
-            if(d.parent){
+            if (d.parent) {
                 parentClick(d.parent);
             }
         }
@@ -127,9 +127,6 @@ class relationshipVisualization {
                     return "1.5px";
                 })
                 .style("fill", function (d) {
-                    if (d.clicked) {
-                        return d._children ? "red" : "#fff";
-                    }
                     return d._children ? "lightsteelblue" : "#fff";
                 });
 
@@ -166,13 +163,18 @@ class relationshipVisualization {
                 parentClick(d);
 
 
-
                 let parentLinks = d3.select("#relationship-visualization").selectAll("path")
                     .filter(function (d) {
+                        d.children.forEach(function (d) {
+
+                        });
                         return d.parentClicked;
                     });
 
                 parentLinks
+                    .attr('stroke', function (d) {
+                        return "#be2714";
+                    });
 
                 barChart.update(d.id);
                 choropleth.updateMap(d.id);
@@ -183,9 +185,6 @@ class relationshipVisualization {
             // Update the node attributes and style
             nodeUpdate.select('circle.node')
                 .style("fill", function (d) {
-                    if (d.clicked) {
-                        return d._children ? "red" : "#fff";
-                    }
                     return d._children ? "lightsteelblue" : "#fff";
                 })
                 .attr('stroke', function (d) {
@@ -231,7 +230,7 @@ class relationshipVisualization {
             let linkEnter = link.enter().insert('path', "g")
                 .attr("class", "link")
                 .attr("stroke", function (d) {
-                    if(d.parentClicked){
+                    if (d.parentClicked) {
                         return "#be2714";
                     }
                     return "#ccc";
@@ -248,7 +247,7 @@ class relationshipVisualization {
             linkUpdate.transition()
                 .duration(duration)
                 .attr('stroke', function (d) {
-                    if(d.parentClicked){
+                    if (d.parentClicked) {
                         return "#be2714";
                     }
                     return "#ccc";
@@ -337,9 +336,6 @@ class relationshipVisualization {
 
                                         d3.select(this)
                                             .attr('r', 10)
-                                            .style('fill', function (d) {
-                                                return d._children ? "red" : "#fff";
-                                            })
                                             .attr('stroke', "red")
                                             .attr('stroke-width', '4px');
 

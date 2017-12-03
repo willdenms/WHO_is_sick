@@ -1,6 +1,6 @@
 class Choropleth {
 
-    constructor() {
+    constructor(countryData) {
 
     }
 
