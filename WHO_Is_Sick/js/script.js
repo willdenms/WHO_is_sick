@@ -34,16 +34,25 @@ d3.csv("data/WHO_stats_2015_5.csv", function (error, dataCSV) {
 
             if (d["Series Name"] === "GDP per capita (current US$)") {
 
-                for (var disease of diseaseData) {
-                    for (var country of disease.value) {
-                        if (country.code === d["Country Code"]) {
-                            country["GDP"] = d["2015 [YR2015]"];
-                            country["name"] = d["Country Name"];
+
+                    for(var disease of diseaseData){
+                        for(var country of disease.value){
+                            if(country.code === d["Country Code"]){
+                                let new_object = {};
+
+                                if(d["2015 [YR2015]"] === "..") {
+                                    country.GDP = "-1";
+                                    country.name = d["Country Name"];
+                                }
+                                else{
+                                    country.GDP = d["2015 [YR2015]"];
+                                    country.name = d["Country Name"];
+                            }
                         }
                     }
                 }
             }
-            if(d["Series Name"] === "Population, total"){
+            if (d["Series Name"] === "Population, total") {
                 for (var disease of diseaseData) {
                     for (var country of disease.value) {
                         if (country.code === d["Country Code"]) {
@@ -60,6 +69,8 @@ d3.csv("data/WHO_stats_2015_5.csv", function (error, dataCSV) {
 
         let barChart = new BarChart(diseaseData);
         barChart.createTableReal("All Causes");
+        barChart.updateTable();
+
         let graph = new relationshipVisualization(barChart, choropleth);
 
         d3.csv("data/diesease_tree.csv", function (error, data) {
