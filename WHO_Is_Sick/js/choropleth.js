@@ -2,6 +2,7 @@ class Choropleth {
 
     constructor(countryData) {
 
+
     }
 
     drawMap(disease) {
@@ -14,7 +15,7 @@ class Choropleth {
             .await(ready);
 
         function ready(error, data) {
-            d3.csv("data/WHO_stats_2015_5_transpose.csv", function (error, whoData) {
+            d3.csv("data/WHO_transpose.csv", function (error, whoData) {
 
 
 
@@ -27,8 +28,11 @@ class Choropleth {
                     .attr('class', 'd3-tip')
                     .offset([-10, 0])
                     .html(function (d) {
-                        return "<strong>Country: </strong><span class='details'>" + d.properties.name + "<br></span>" + "<strong>Mortality: </strong><span class='details'>" + format(d.disease) + "</span>";
-                    })
+                        return "<strong>Country: </strong><span class='details'>" + d.properties.name + "<br></span>" +
+                            "<strong>Mortality Per Capita: </strong><span class='details'>" + format(d.population / d.disease) + "<br></span>" +
+                            "<strong>Population: </strong><span class='details'>" + format(d.population) + "<br></span>" +
+                            "<strong>GDP: </strong><span class='details'>" + "$" + format(d.GDP) + "<br></span>";
+                    });
 
                 let margin = {top: -100, right: 0, bottom: 0, left: 0},
                     width = 1000 - margin.left - margin.right,
@@ -37,8 +41,8 @@ class Choropleth {
                 let colors = ["#ffe6e6", "#ffcccc","#ffb3b3","#ff8080", "#ff4d4d","#ff1a1a","#e60000","#b30000","#800000"];
 
                 let color = d3.scaleThreshold()
-                // .domain([10000,100000,500000,1000000,5000000,10000000,50000000,100000000,500000000,1500000000])
-                    .domain([1, 50, 100, 200, 400, 800, 1000, 1500, 1800, 2000])
+                    .domain([100,1000,5000,10000,50000,100000,500000,1000000,5000000,15000000])
+                    // .domain([1, 50, 100, 200, 400, 800, 1000, 1500, 1800, 2000])
                     // .range(["rgb(247,251,255)", "rgb(222,235,247)", "rgb(198,219,239)", "rgb(158,202,225)", "rgb(107,174,214)", "rgb(66,146,198)", "rgb(33,113,181)", "rgb(8,81,156)", "rgb(8,48,107)", "rgb(3,19,43)"]);
                     .range(colors);
 
@@ -67,6 +71,8 @@ class Choropleth {
                 // console.log("this should be the disease " + disease);
 
                 let diseaseByCountryName = {};
+                let populationByCountryName = {};
+                let gdpByCountryName = {};
 
                 // console.log("this is the dataCSV: " + self.data);
 
@@ -74,14 +80,17 @@ class Choropleth {
                 whoData.forEach(function (d) {
 
                     diseaseByCountryName[d.CountryCode] = +d[disease];
-                    // console.log("this is my new breakpoint: " + diseaseByCountryName[d.id]);
+                    populationByCountryName[d.CountryCode] = +d.Population;
+                    gdpByCountryName[d.CountryCode] = + d.GDP;
 
                 });
 
                 //Json world countries parsing
                 data.features.forEach(function (d) {
 
-                    d.disease = diseaseByCountryName[d.id]
+                    d.disease = diseaseByCountryName[d.id];
+                    d.GDP = gdpByCountryName[d.id];
+                    d.population = populationByCountryName[d.id];
                 });
 
                 svg.append("g")
@@ -91,8 +100,9 @@ class Choropleth {
                     .enter().append("path")
                     .attr("d", path)
                     .style("fill", function (d) {
-                        //console.log(diseaseByCountryName[d.id]);
-                        return color(diseaseByCountryName[d.id]);
+                        // console.log(populationByCountryName[d.id]);
+                        // console.log(diseaseByCountryName[d.id]);
+                        return color(populationByCountryName[d.id]/diseaseByCountryName[d.id]);
                     })
                     .style('stroke', 'white')
                     .style('stroke-width', 1.5)
@@ -133,7 +143,7 @@ class Choropleth {
 
     updateMap(diseaseName){
         this.drawMap(diseaseName);
-        // console.log('a new Disease is selected from graph' + diseaseName);
+        console.log('a new Disease is selected from graph' + diseaseName);
 
     }
 
