@@ -1,0 +1,11 @@
+WHO Is Sick?
+
+This project is a visualization that helps people understand mortality rates across the world. It provides the user at a glance what countries are outliers for specific diseases, and what some socio economic factors could be correlated with the associated mortality rate.
+
+The visualization starts with &#39;All Mortality&quot; rates selected, this is an aggregate of all mortality rates. By clicking on the node, you will see that it expands letting the user explore how different diseases are connected, and see them auto populate on the map.
+
+The user can also sort the bar chart data to see how GDP correlates to mortality rate.
+
+Screencast: [https://youtu.be/GTP49NoBkBs](https://youtu.be/GTP49NoBkBs)
+
+Website: https://willdenms.github.io/WHO\_is\_sick
