@@ -38,7 +38,6 @@ class BarChart{
         });
 
         this.diseaseMortality = rowFilter[0].value;
-        this.diseaseMortality = rowFilter[0].value;
 
         this.diseaseMortality = this.diseaseMortality.filter(function(record){
             if(record.mortality != '.')
