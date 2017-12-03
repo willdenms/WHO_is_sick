@@ -57,12 +57,12 @@ class relationshipVisualization {
             }
         }
 
-        function falseClick(d){
+        function falseClick(d) {
             d.clicked = false;
-            if(d.children){
+            if (d.children) {
                 d.children.forEach(falseClick);
             }
-            else if(d._children){
+            else if (d._children) {
                 d._children.forEach(falseClick);
             }
         }
@@ -100,25 +100,25 @@ class relationshipVisualization {
             nodeEnter.append('circle')
                 .attr('class', 'node')
                 .attr('r', function (d) {
-                    if(d.clicked){
+                    if (d.clicked) {
                         return 10;
                     }
                     return 6;
                 })
                 .attr('stroke', function (d) {
-                    if(d.clicked){
+                    if (d.clicked) {
                         return "red";
                     }
                     return "steelblue";
                 })
                 .attr('stroke-width', function (d) {
-                    if(d.clicked){
+                    if (d.clicked) {
                         return "4px";
                     }
                     return "1.5px";
                 })
                 .style("fill", function (d) {
-                    if(d.clicked){
+                    if (d.clicked) {
                         return d._children ? "red" : "#fff";
                     }
                     return d._children ? "lightsteelblue" : "#fff";
@@ -163,19 +163,19 @@ class relationshipVisualization {
             // Update the node attributes and style
             nodeUpdate.select('circle.node')
                 .style("fill", function (d) {
-                    if(d.clicked){
+                    if (d.clicked) {
                         return d._children ? "red" : "#fff";
                     }
                     return d._children ? "lightsteelblue" : "#fff";
                 })
                 .attr('stroke', function (d) {
-                    if(d.clicked){
+                    if (d.clicked) {
                         return "red";
                     }
                     return "steelblue";
                 })
                 .attr('stroke-width', function (d) {
-                    if(d.clicked){
+                    if (d.clicked) {
                         return "4px";
                     }
                     return "1.5px";
@@ -291,8 +291,8 @@ class relationshipVisualization {
                                 wait = null;
                                 dispatcher.apply("dblclick", this, args);
                             } else {
-                                wait = window.setTimeout(( () => {
-                                    return  () => {
+                                wait = window.setTimeout((() => {
+                                    return () => {
 
                                         d3.select("#relationship-visualization").selectAll("circle")
                                             .attr('r', 6)

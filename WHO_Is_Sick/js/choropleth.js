@@ -117,8 +117,6 @@ class Choropleth {
         this.drawMap(diseaseName);
         console.log('a new Disease is selected from graph' + diseaseName);
 
-
-
     }
 
 }
