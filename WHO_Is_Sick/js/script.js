@@ -42,10 +42,11 @@ d3.csv("data/WHO_stats_2015_5.csv", function (error, dataCSV) {
 
                                 if(d["2015 [YR2015]"] === "..") {
                                     country.GDP = "-1";
+                                    country.name = d["Country Name"];
                                 }
-                                else
+                                else{
                                     country.GDP = d["2015 [YR2015]"];
-                                country.name = d["Country Name"];
+                                    country.name = d["Country Name"];
                             }
                         }
                     }
@@ -65,7 +66,6 @@ d3.csv("data/WHO_stats_2015_5.csv", function (error, dataCSV) {
 
         let choropleth = new Choropleth(diseaseData[0].value);
         choropleth.drawMap("All Causes");
-        
         let barChart = new BarChart(diseaseData);
         barChart.createTableReal("All Causes");
         barChart.updateTable();
