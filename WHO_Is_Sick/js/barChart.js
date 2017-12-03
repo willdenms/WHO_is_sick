@@ -10,21 +10,21 @@ class BarChart{
             "buffer": 60
         };
 
-        // Maximum mortality rate
-        // This is going to change in the future depending upon the disease selected.
-        /*let max_mortality = d3.max(this.statistics, function(d){
-            return d['MortalityRate']
+        let max_gdb = d3.max(allData[0].value, function(d){
+            return parseFloat(d['GDP']);
         });
 
-        // bar width scale
-        this.mortalityWidthScale = d3.scaleLinear()
-                                    .domain([0, max_mortality])
-                                    .range([0, this.cell.width - this.cell.buffer]);
+        console.log(max_gdb);
+
+        this.gdbWidthScale = d3.scaleLinear()
+            .domain([0, max_gdb])
+            .range([0, this.cell.width - this.cell.buffer]);
 
         // color scale for the bars
-        this.mortalityColorScale = d3.scaleLinear()
-                                    .domain([0, max_mortality])
-                                    .range(['#cb181d','#034e7b']);*/
+        this.gdbColorScale = d3.scaleLinear()
+            .domain([0, max_gdb])
+            .range(['#cb181d','#034e7b']);
+
     }
 
     createTableReal(diseaseName)
@@ -45,8 +45,6 @@ class BarChart{
             if(record.mortality != '.')
                 return record;
         });
-
-        console.log(diseaseMortality[0].name);
 
         diseaseMortality.sort(function(a, b){
             if(parseFloat(a.mortality) > parseFloat(b.mortality))
@@ -81,7 +79,8 @@ class BarChart{
                     .data(function(d){
                         return [
                             {'vis':'text', 'value':d['name']},
-                            {'vis': 'bar', 'value':d['mortality']}
+                            {'vis': 'bar', 'value':d['mortality']},
+                            {'vis': 'bar', 'value':d['GDP']}
                         ];
                     });
 
@@ -97,7 +96,7 @@ class BarChart{
             return d.value;
         }).classed('country-name-style', true);
 
-        let td_bar = td.filter(function(d){
+        let td_bar = td.filter(function(d, i){
             return d.vis == 'bar';
         });
 
@@ -106,20 +105,38 @@ class BarChart{
             .attr('height', this.cell.height);
 
         td_bar.append('rect')
-            .attr('width', (d)=>{
-                return this.mortalityWidthScale(parseFloat(d.value));
+            .attr('width', (d, i)=>{
+                if(i == 0)
+                    return this.mortalityWidthScale(parseFloat(d.value));
+                else if(i == 1){
+                        if(d.value!=="..")
+                            return this.gdbWidthScale(parseFloat(d.value));
+                    }
             })
             .attr('height', this.cell.height - 5)
-            .style('fill', (d)=>{
-                return this.mortalityColorScale(parseFloat(d.value));
+            .style('fill', (d, i)=>{
+                if(i == 0)
+                    return this.mortalityColorScale(parseFloat(d.value));
+                else if(i == 1)
+                    return this.gdbColorScale(parseFloat(d.value));
             });
 
         // Below translation verify and color filling also verify.
         td_bar.append('text')
-            .attr('transform', (d)=>{
-                return 'translate('+ (this.mortalityWidthScale(parseFloat(d.value)) + 10 )+',20)';
+            .attr('transform', (d, i)=>{
+                if(i == 0)
+                    return 'translate('+ (this.mortalityWidthScale(parseFloat(d.value)) + 10 )+',20)';
+                else {
+                    if(d.value != "..")
+                        return 'translate(' + (this.gdbWidthScale(parseFloat(d.value)) + 10 ) + ',20)';
+                    else
+                        return 'translate(0,20)';
+                }
             })
-            .text(function(d){
+            .text(function(d, i){
+                if(i == 1 && d.value === "..") {
+                    return "Not available";
+                }
                 return d.value;
             })
             .style('fill', 'black');

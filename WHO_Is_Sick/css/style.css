@@ -51,6 +51,11 @@ tbody td{
     border-right: solid 1px black;
 }
 
+thead th{
+    cursor: s-resize;
+    font-weight: bold;
+}
+
 /*.node circle {*/
     /*fill: #fff;*/
     /*stroke: steelblue;*/
